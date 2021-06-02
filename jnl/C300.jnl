@@ -1,0 +1,1736 @@
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+del mdb.models['Model-1'].parts['Part-1']
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0)
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(0.0, 0.0), 
+    point2=(2.0, 0.2))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(1.0, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(1.02, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(0.98, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.98, 0.0), point2=(
+    0.98, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[6])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.98, 0.1), point2=(
+    1.02, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(1.02, 0.1), point2=(
+    1.02, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].autoTrimCurve(curve1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[5], point1=(
+    0.99515700340271, 0.000890264287590981))
+mdb.models['Model-1'].Part(dimensionality=TWO_D_PLANAR, name='Part-1', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['Part-1'].BaseShell(sketch=
+    mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].sections['Section-1'].setValues(material='Concrete', 
+    thickness=0.05)
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-2', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-3', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+del mdb.models['Model-1'].sections['Section-1']
+mdb.models['Model-1'].HomogeneousSolidSection(material='Concrete', name=
+    'Section-1', thickness=0.05)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-4', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+del mdb.models['Model-1'].rootAssembly.features['Part-1-1']
+del mdb.models['Model-1'].rootAssembly.features['Part-1-2']
+del mdb.models['Model-1'].rootAssembly.features['Part-1-3']
+del mdb.models['Model-1'].rootAssembly.features['Part-1-4']
+mdb.models['Model-1'].rootAssembly.Instance(dependent=OFF, name='Part-1-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].rootAssembly.setMeshControls(elemShape=QUAD, regions=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#1 ]', ), ))
+mdb.models['Model-1'].rootAssembly.setElementType(elemTypes=(ElemType(
+    elemCode=CPS4R, elemLibrary=EXPLICIT, secondOrderAccuracy=OFF, 
+    hourglassControl=DEFAULT, distortionControl=DEFAULT), ElemType(
+    elemCode=CPS3, elemLibrary=EXPLICIT)), regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+mdb.models['Model-1'].rootAssembly.seedPartInstance(deviationFactor=0.1, 
+    minSizeFactor=0.1, regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'], ), size=0.01)
+mdb.models['Model-1'].rootAssembly.seedPartInstance(deviationFactor=0.1, 
+    minSizeFactor=0.1, regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'], ), size=0.05)
+mdb.models['Model-1'].rootAssembly.generateMesh(regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'], ))
+mdb.models['Model-1'].rootAssembly.deleteMesh(regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'], ))
+mdb.models['Model-1'].rootAssembly.seedPartInstance(deviationFactor=0.1, 
+    minSizeFactor=0.1, regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'], ), size=0.01)
+mdb.models['Model-1'].rootAssembly.generateMesh(regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'], ))
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=
+    mdb.models['Model-1'].parts['Part-1'].features['Shell planar-1'].sketch)
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__edit__'], 
+    upToFeature=
+    mdb.models['Model-1'].parts['Part-1'].features['Shell planar-1'])
+mdb.models['Model-1'].sketches['__edit__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__edit__'].geometry[2], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[3], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[4], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[6], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[7], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[8], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[9], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[10], 
+    mdb.models['Model-1'].sketches['__edit__'].vertices[4], 
+    mdb.models['Model-1'].sketches['__edit__'].vertices[5], 
+    mdb.models['Model-1'].sketches['__edit__'].vertices[6], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[18], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[19], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[22], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[23], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[26], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[29], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[30], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[31], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[34], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[35], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[36], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[39]))
+del mdb.models['Model-1'].sketches['__edit__']
+del mdb.models['Model-1'].parts['Part-1']
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0)
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.0, 0.0), point2=(
+    0.0, 0.2))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[2])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.0, 0.2), point2=(
+    2.0, 0.2))
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[2], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(2.0, 0.2), point2=(
+    2.0, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[4])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(2.0, 0.0), point2=(
+    1.02, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[5])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[5])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(1.02, 0.0), point2=(
+    1.02, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[6])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[5], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(1.02, 0.1), point2=(
+    0.98, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.98, 0.1), point2=(
+    0.98, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.98, 0.0), point2=(
+    0.0, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[9])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[8], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[9])
+mdb.models['Model-1'].Part(dimensionality=TWO_D_PLANAR, name='Part-1', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['Part-1'].BaseShell(sketch=
+    mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+del mdb.models['Model-1'].sections['Section-1']
+mdb.models['Model-1'].rootAssembly.regenerate()
+del mdb.models['Model-1'].rootAssembly.features['Part-1-1']
+del mdb.models['Model-1'].rootAssembly.sets['Set-1']
+del mdb.models['Model-1'].rootAssembly.sets['Set-2']
+del mdb.models['Model-1'].rootAssembly.sets['Set-3']
+del mdb.models['Model-1'].rootAssembly.sets['Set-4']
+del mdb.models['Model-1'].historyOutputRequests['H-Output-1']
+del mdb.models['Model-1'].historyOutputRequests['H-Output-2-Reaction_Load']
+mdb.models['Model-1'].historyOutputRequests['H-Output-3-velocity'].suppress()
+del mdb.models['Model-1'].historyOutputRequests['H-Output-3-velocity']
+del mdb.models['Model-1'].historyOutputRequests['H-Output-4-stress']
+del mdb.models['Model-1'].historyOutputRequests['H-Output-5']
+mdb.models['Model-1'].HomogeneousSolidSection(material='Concrete', name=
+    'Section-1', thickness=0.05)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+del mdb.models['Model-1'].rootAssembly.features['Part-1-1']
+mdb.models['Model-1'].rootAssembly.Instance(dependent=OFF, name='Part-1-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].rootAssembly.setMeshControls(elemShape=QUAD, regions=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#1 ]', ), ), technique=STRUCTURED)
+mdb.models['Model-1'].rootAssembly.setElementType(elemTypes=(ElemType(
+    elemCode=CPS4R, elemLibrary=EXPLICIT, secondOrderAccuracy=OFF, 
+    hourglassControl=DEFAULT, distortionControl=DEFAULT), ElemType(
+    elemCode=CPS3, elemLibrary=EXPLICIT)), regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].faces.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+mdb.models['Model-1'].rootAssembly.seedPartInstance(deviationFactor=0.1, 
+    minSizeFactor=0.1, regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'], ), size=0.05)
+mdb.models['Model-1'].rootAssembly.generateMesh(regions=(
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'], ))
+# Save by Deepak Choudhary on 2021_04_11-01.08.44; build 6.14-5 2015_08_18-20.07.49 135153
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].ConstrainedSketch(gridSpacing=0.1, name='__profile__', 
+    sheetSize=4.01, transform=
+    mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].faces[0], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(1.0, 0.100505, 
+    0.0)))
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__profile__'])
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(-0.02, 
+    -0.000505), point2=(0.025, 0.099495))
+mdb.models['Model-1'].sketches['__profile__'].CoincidentConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[9], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-0.02, -0.000505), 
+    point2=(-0.02, 0.0994949999865517))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[10])
+mdb.models['Model-1'].sketches['__profile__'].ParallelConstraint(addUndoState=
+    False, entity1=mdb.models['Model-1'].sketches['__profile__'].geometry[3], 
+    entity2=mdb.models['Model-1'].sketches['__profile__'].geometry[10])
+mdb.models['Model-1'].sketches['__profile__'].CoincidentConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[8], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-0.02, 
+    0.0994949999865517), point2=(0.0207501649856567, 0.099495))
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[11])
+mdb.models['Model-1'].sketches['__profile__'].CoincidentConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[9], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(-0.02, 
+    0.0994949999865517), point2=(0.02, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.02, 0.1), point2=(
+    0.02, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[12])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.02, 0.0), point2=(
+    -0.02, -0.000505))
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(-1.0, 0.099495)
+    , point2=(-0.02, -0.100505))
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(0.02, 0.1), 
+    point2=(1.0, -0.100505))
+mdb.models['Model-1'].parts['Part-1'].PartitionFaceBySketch(faces=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#1 ]', 
+    ), ), sketch=mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=
+    mdb.models['Model-1'].parts['Part-1'].features['Shell planar-1'].sketch)
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__edit__'], 
+    upToFeature=
+    mdb.models['Model-1'].parts['Part-1'].features['Shell planar-1'])
+del mdb.models['Model-1'].sketches['__edit__']
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=
+    mdb.models['Model-1'].parts['Part-1'].features['Partition face-1'].sketch)
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__edit__'], 
+    upToFeature=
+    mdb.models['Model-1'].parts['Part-1'].features['Partition face-1'])
+del mdb.models['Model-1'].sketches['__edit__']
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=
+    mdb.models['Model-1'].parts['Part-1'].features['Shell planar-1'].sketch)
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__edit__'], 
+    upToFeature=
+    mdb.models['Model-1'].parts['Part-1'].features['Shell planar-1'])
+mdb.models['Model-1'].sketches['__edit__'].delete(objectList=(
+    mdb.models['Model-1'].sketches['__edit__'].geometry[2], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[3], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[4], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[5], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[6], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[7], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[8], 
+    mdb.models['Model-1'].sketches['__edit__'].geometry[9], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[4], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[7], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[8], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[11], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[12], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[15], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[16], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[19], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[20], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[23], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[24], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[27], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[28], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[31], 
+    mdb.models['Model-1'].sketches['__edit__'].constraints[32]))
+del mdb.models['Model-1'].sketches['__edit__']
+del mdb.models['Model-1'].parts['Part-1'].features['Partition face-1']
+mdb.models['Model-1'].ConstrainedSketch(name='__edit__', objectToCopy=
+    mdb.models['Model-1'].parts['Part-1'].features['Shell planar-1'].sketch)
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__edit__'], 
+    upToFeature=
+    mdb.models['Model-1'].parts['Part-1'].features['Shell planar-1'])
+mdb.models['Model-1'].sketches['__edit__'].Spot(point=(0.98, 0.1))
+mdb.models['Model-1'].sketches['__edit__'].CoincidentConstraint(addUndoState=
+    False, entity1=mdb.models['Model-1'].sketches['__edit__'].vertices[8], 
+    entity2=mdb.models['Model-1'].sketches['__edit__'].geometry[7])
+del mdb.models['Model-1'].sketches['__edit__']
+del mdb.models['Model-1'].parts['Part-1']
+mdb.models['Model-1'].ConstrainedSketch(name='__profile__', sheetSize=200.0)
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(0.0, 0.0), 
+    point2=(2.0, 0.2))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(1.0, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(1.02, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(0.98, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(1.02, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(0.98, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(0.98, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].Spot(point=(0.98, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.98, 0.0), point2=(
+    0.98, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[6])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(0.98, 0.1), point2=(
+    1.02, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(
+    addUndoState=False, entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].Line(point1=(1.02, 0.1), point2=(
+    1.02, 0.0))
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(addUndoState=
+    False, entity=mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].PerpendicularConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].autoTrimCurve(curve1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[5], point1=(
+    1.00167500972748, 0.00252350606024265))
+mdb.models['Model-1'].sketches['__profile__'].EqualLengthConstraint(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[2])
+mdb.models['Model-1'].sketches['__profile__'].EqualLengthConstraint(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[10])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[7])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[9])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[10])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[9])
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].EqualLengthConstraint(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[2], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4])
+mdb.models['Model-1'].sketches['__profile__'].EqualLengthConstraint(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[6], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[8])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[10])
+mdb.models['Model-1'].sketches['__profile__'].HorizontalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[9])
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[2])
+mdb.models['Model-1'].sketches['__profile__'].VerticalConstraint(entity=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[4])
+mdb.models['Model-1'].sketches['__profile__'].ParallelConstraint(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[10])
+mdb.models['Model-1'].sketches['__profile__'].ParallelConstraint(addUndoState=
+    False, entity1=mdb.models['Model-1'].sketches['__profile__'].geometry[10], 
+    entity2=mdb.models['Model-1'].sketches['__profile__'].geometry[3])
+mdb.models['Model-1'].sketches['__profile__'].ParallelConstraint(addUndoState=
+    False, entity1=mdb.models['Model-1'].sketches['__profile__'].geometry[3], 
+    entity2=mdb.models['Model-1'].sketches['__profile__'].geometry[3])
+mdb.models['Model-1'].sketches['__profile__'].ParallelConstraint(addUndoState=
+    False, entity1=mdb.models['Model-1'].sketches['__profile__'].geometry[3], 
+    entity2=mdb.models['Model-1'].sketches['__profile__'].geometry[3])
+mdb.models['Model-1'].sketches['__profile__'].ParallelConstraint(entity1=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[3], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[9])
+mdb.models['Model-1'].Part(dimensionality=TWO_D_PLANAR, name='Part-1', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['Part-1'].BaseShell(sketch=
+    mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+mdb.models['Model-1'].ConstrainedSketch(gridSpacing=0.1, name='__profile__', 
+    sheetSize=4.01, transform=
+    mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].faces[0], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(1.0, 0.100505, 
+    0.0)))
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__profile__'])
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(-0.02, 
+    -0.000505), point2=(0.02, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(-1.0, 0.099495)
+    , point2=(0.02, -0.100505))
+mdb.models['Model-1'].sketches['__profile__'].undo()
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(-1.0, 0.099495)
+    , point2=(-0.02, -0.100505))
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(1.0, 0.099495), 
+    point2=(0.02, -0.100505))
+mdb.models['Model-1'].parts['Part-1'].PartitionFaceBySketch(faces=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#1 ]', 
+    ), ), sketch=mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+del mdb.models['Model-1'].sections['Section-1']
+mdb.models['Model-1'].HomogeneousSolidSection(material='Concrete', name=
+    'Section-1', thickness=0.05)
+mdb.models['Model-1'].rootAssembly.regenerate()
+del mdb.models['Model-1'].rootAssembly.features['Part-1-1']
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].parts['Part-1'].setMeshControls(elemShape=QUAD, regions=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#7 ]', 
+    ), ), technique=STRUCTURED)
+mdb.models['Model-1'].parts['Part-1'].setElementType(elemTypes=(ElemType(
+    elemCode=CPS4R, elemLibrary=EXPLICIT, secondOrderAccuracy=OFF, 
+    hourglassControl=DEFAULT, distortionControl=DEFAULT), ElemType(
+    elemCode=CPS3, elemLibrary=EXPLICIT)), regions=(
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#7 ]', 
+    ), ), ))
+mdb.models['Model-1'].parts['Part-1'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.05)
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].parts['Part-1'].deleteMesh()
+mdb.models['Model-1'].parts['Part-1'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.01)
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-1', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#100 ]', ), ))
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-2', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#4 ]', ), ))
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-3 load', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#0:14 #2000000 ]', ), ))
+mdb.models['Model-1'].parts['Part-1'].sets.changeKey(fromName='Set-1', toName=
+    'Set-1 support')
+mdb.models['Model-1'].parts['Part-1'].sets.changeKey(fromName='Set-2', toName=
+    'Set-2 support')
+mdb.models['Model-1'].rootAssembly.regenerate()
+del mdb.models['Model-1'].boundaryConditions['BC-1']
+del mdb.models['Model-1'].boundaryConditions['BC-2']
+del mdb.models['Model-1'].boundaryConditions['BC-3']
+del mdb.models['Model-1'].boundaryConditions['BC-4']
+mdb.models['Model-1'].rootAssembly.Set(name='Set-5', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#8 ]', ), ))
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName='Step-1', 
+    distributionType=UNIFORM, fieldName='', fixed=OFF, localCsys=None, name=
+    'BC-1', region=mdb.models['Model-1'].rootAssembly.sets['Set-5'], u1=0.0, 
+    u2=0.0, ur3=0.0)
+mdb.models['Model-1'].rootAssembly.Set(name='Set-6', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#100 ]', ), ))
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName='Step-1', 
+    distributionType=UNIFORM, fieldName='', fixed=OFF, localCsys=None, name=
+    'BC-2', region=mdb.models['Model-1'].rootAssembly.sets['Set-6'], u1=0.0, 
+    u2=0.0, ur3=0.0)
+mdb.models['Model-1'].rootAssembly.Set(name='Set-3', nodes=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].nodes.getSequenceFromMask(
+    mask=('[#0:14 #2000000 ]', ), ))
+del mdb.models['Model-1'].rootAssembly.sets['Set-3']
+mdb.models['Model-1'].parts['Part-1'].deleteMesh(regions=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#7 ]', 
+    ), ))
+mdb.models['Model-1'].ConstrainedSketch(gridSpacing=0.1, name='__profile__', 
+    sheetSize=4.01, transform=
+    mdb.models['Model-1'].parts['Part-1'].MakeSketchTransform(
+    sketchPlane=mdb.models['Model-1'].parts['Part-1'].faces[0], 
+    sketchPlaneSide=SIDE1, sketchOrientation=RIGHT, origin=(0.49, 0.1, 0.0)))
+mdb.models['Model-1'].parts['Part-1'].projectReferencesOntoSketch(filter=
+    COPLANAR_EDGES, sketch=mdb.models['Model-1'].sketches['__profile__'])
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(0.51, 0.0), 
+    point2=(0.53, 0.1))
+mdb.models['Model-1'].sketches['__profile__'].CoincidentConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[10], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].geometry[15])
+mdb.models['Model-1'].sketches['__profile__'].EqualDistanceConstraint(
+    addUndoState=False, entity1=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[0], entity2=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[6], midpoint=
+    mdb.models['Model-1'].sketches['__profile__'].vertices[10])
+mdb.models['Model-1'].sketches['__profile__'].rectangle(point1=(0.49, 0.1), 
+    point2=(0.51, 0.0))
+mdb.models['Model-1'].parts['Part-1'].PartitionFaceBySketch(faces=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#7 ]', 
+    ), ), sketch=mdb.models['Model-1'].sketches['__profile__'])
+del mdb.models['Model-1'].sketches['__profile__']
+del mdb.models['Model-1'].parts['Part-1'].sets['Set-1 support']
+del mdb.models['Model-1'].parts['Part-1'].sets['Set-2 support']
+del mdb.models['Model-1'].parts['Part-1'].sets['Set-3 load']
+del mdb.models['Model-1'].sections['Section-1']
+mdb.models['Model-1'].HomogeneousSolidSection(material='Concrete', name=
+    'Section-1', thickness=0.05)
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-2', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].rootAssembly.deleteFeatures(('Part-1-1', 'Part-1-2'))
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].parts['Part-1'].setMeshControls(regions=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#f ]', 
+    ), ), technique=STRUCTURED)
+mdb.models['Model-1'].parts['Part-1'].setElementType(elemTypes=(ElemType(
+    elemCode=CPS4R, elemLibrary=EXPLICIT, secondOrderAccuracy=OFF, 
+    hourglassControl=DEFAULT, distortionControl=DEFAULT), ElemType(
+    elemCode=CPS3, elemLibrary=EXPLICIT)), regions=(
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#f ]', 
+    ), ), ))
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-1', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#2 ]', ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+del mdb.models['Model-1'].rootAssembly.sets['Set-6']
+del mdb.models['Model-1'].rootAssembly.sets['Set-5']
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-2', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#20 ]', ), ))
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-3', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#400 ]', ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+del mdb.models['Model-1'].boundaryConditions['BC-1']
+del mdb.models['Model-1'].boundaryConditions['BC-2']
+mdb.models['Model-1'].rootAssembly.Set(name='Set-5', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#20 ]', ), ))
+mdb.models['Model-1'].PinnedBC(createStepName='Step-1', localCsys=None, name=
+    'BC-1', region=mdb.models['Model-1'].rootAssembly.sets['Set-5'])
+mdb.models['Model-1'].rootAssembly.Set(name='Set-6', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#400 ]', ), ))
+mdb.models['Model-1'].PinnedBC(createStepName='Step-1', localCsys=None, name=
+    'BC-2', region=mdb.models['Model-1'].rootAssembly.sets['Set-6'])
+mdb.models['Model-1'].rootAssembly.Set(name='Set-7', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#2 ]', ), ))
+mdb.models['Model-1'].VelocityBC(amplitude='Amp-1', createStepName='Step-1', 
+    distributionType=UNIFORM, fieldName='', localCsys=None, name='BC-3', 
+    region=mdb.models['Model-1'].rootAssembly.sets['Set-7'], v1=0.005, v2=UNSET
+    , vr3=UNSET)
+mdb.models['Model-1'].boundaryConditions['BC-3'].setValues(v1=UNSET, v2=0.005)
+mdb.models['Model-1'].boundaryConditions['BC-3'].setValues(v2=-0.005)
+mdb.models['Model-1'].fieldOutputRequests['F-Output-1'].setValues(variables=(
+    'S', 'SVAVG', 'PE', 'PEVAVG', 'PEEQ', 'PEEQVAVG', 'LE', 'U', 'V', 'A', 
+    'RF', 'CSTRESS', 'ENER', 'ELEN', 'ELEDEN', 'EDCDEN', 'EDT', 'DAMAGEC', 
+    'DAMAGET', 'EVF'))
+mdb.models['Model-1'].HistoryOutputRequest(createStepName='Step-1', name=
+    'H-Output-1', rebar=EXCLUDE, region=
+    mdb.models['Model-1'].rootAssembly.allInstances['Part-1-1'].sets['Set-2'], 
+    sectionPoints=DEFAULT, timeInterval=0.01, variables=('S11', 'S22', 'S33', 
+    'S12', 'S13', 'S23', 'SP', 'TRESC', 'PRESS', 'INV3', 'MISES', 'TSHR13', 
+    'TSHR23', 'CTSHR13', 'CTSHR23', 'TRIAX', 'VS11', 'VS22', 'VS33', 'VS12', 
+    'VS13', 'VS23', 'PS11', 'PS22', 'PS33', 'PS12', 'PS13', 'PS23', 
+    'SFABRIC11', 'SFABRIC22', 'SFABRIC33', 'SFABRIC12', 'SFABRIC13', 
+    'SFABRIC23', 'SSAVG1', 'SSAVG2', 'SSAVG3', 'SSAVG4', 'SSAVG5', 'SSAVG6', 
+    'E11', 'E22', 'E33', 'E12', 'E13', 'E23', 'VE11', 'VE22', 'VE33', 'VE12', 
+    'VE13', 'VE23', 'PE11', 'PE22', 'PE33', 'PE12', 'PE13', 'PE23', 'PEP', 
+    'VEEQ', 'PEEQ', 'PEEQT', 'PEMAG', 'PEQC1', 'PEQC2', 'PEQC3', 'PEQC4', 
+    'NE11', 'NE22', 'NE33', 'NE12', 'NE13', 'NE23', 'NEP', 'LE11', 'LE22', 
+    'LE33', 'LE12', 'LE13', 'LE23', 'LEP', 'ER11', 'ER22', 'ER33', 'ER12', 
+    'ER13', 'ER23', 'ERV', 'SE1', 'SE2', 'SE3', 'SK1', 'SK2', 'SK3', 'BICURV', 
+    'EFABRIC11', 'EFABRIC22', 'EFABRIC33', 'EFABRIC12', 'EFABRIC13', 
+    'EFABRIC23', 'RF1', 'RF2', 'RF3', 'RM1', 'RM2', 'RM3'))
+mdb.models['Model-1'].HistoryOutputRequest(createStepName='Step-1', name=
+    'H-Output-2', rebar=EXCLUDE, region=
+    mdb.models['Model-1'].rootAssembly.allInstances['Part-1-1'].sets['Set-3'], 
+    sectionPoints=DEFAULT, timeInterval=0.01, variables=('S11', 'S22', 'S33', 
+    'S12', 'S13', 'S23', 'SP', 'TRESC', 'PRESS', 'INV3', 'MISES', 'TSHR13', 
+    'TSHR23', 'CTSHR13', 'CTSHR23', 'TRIAX', 'VS11', 'VS22', 'VS33', 'VS12', 
+    'VS13', 'VS23', 'PS11', 'PS22', 'PS33', 'PS12', 'PS13', 'PS23', 
+    'SFABRIC11', 'SFABRIC22', 'SFABRIC33', 'SFABRIC12', 'SFABRIC13', 
+    'SFABRIC23', 'SSAVG1', 'SSAVG2', 'SSAVG3', 'SSAVG4', 'SSAVG5', 'SSAVG6', 
+    'E11', 'E22', 'E33', 'E12', 'E13', 'E23', 'VE11', 'VE22', 'VE33', 'VE12', 
+    'VE13', 'VE23', 'PE11', 'PE22', 'PE33', 'PE12', 'PE13', 'PE23', 'PEP', 
+    'VEEQ', 'PEEQ', 'PEEQT', 'PEMAG', 'PEQC1', 'PEQC2', 'PEQC3', 'PEQC4', 
+    'NE11', 'NE22', 'NE33', 'NE12', 'NE13', 'NE23', 'NEP', 'LE11', 'LE22', 
+    'LE33', 'LE12', 'LE13', 'LE23', 'LEP', 'ER11', 'ER22', 'ER33', 'ER12', 
+    'ER13', 'ER23', 'ERV', 'SE1', 'SE2', 'SE3', 'SK1', 'SK2', 'SK3', 'BICURV', 
+    'EFABRIC11', 'EFABRIC22', 'EFABRIC33', 'EFABRIC12', 'EFABRIC13', 
+    'EFABRIC23', 'RF1', 'RF2', 'RF3', 'RM1', 'RM2', 'RM3'))
+mdb.Job(activateLoadBalancing=False, atTime=None, contactPrint=OFF, 
+    description='', echoPrint=OFF, explicitPrecision=SINGLE, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='Job-4', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numDomains=1, parallelizationMethodExplicit=DOMAIN, queue=None, 
+    resultsFormat=ODB, scratch='', type=ANALYSIS, userSubroutine='', waitHours=
+    0, waitMinutes=0)
+mdb.jobs['Job-4'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-4']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DC', 'handle': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IN THE OPTION *CONCRETE TENSION STIFFENING, STRESS VALUES SMALLER THAN THE MINIMUM (1.00000E-02 TIMES THE INITIAL FAILURE STRESS) HAVE BEEN SPECIFIED. THE MINIMUM VALUE WILL BE ASSUMED.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': '3960 elements have missing property definitions. The elements have been identified in element set ErrElemMissingSection.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST DAMAGEC IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST DAMAGET IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ENER IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EVF IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST LE IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PE IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEEQ IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEEQVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST S IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EDCDEN IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EDT IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ELEDEN IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ELEN IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RF3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RF3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE OPTION *BOUNDARY,TYPE=DISPLACEMENT HAS BEEN USED; CHECK STATUS FILE BETWEEN STEPS FOR WARNINGS ON ANY JUMPS PRESCRIBED ACROSS THE STEPS IN DISPLACEMENT VALUES OF TRANSLATIONAL DOF. FOR ROTATIONAL DOF MAKE SURE THAT THERE ARE NO SUCH JUMPS. ALL JUMPS IN DISPLACEMENTS ACROSS STEPS ARE IGNORED', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'NO SECTION DEFINITIONS FOUND', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Temp\\Job-4.odb', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.models['Model-1'].parts['Part-1'].Set(faces=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#f ]', 
+    ), ), name='Set-8')
+mdb.models['Model-1'].parts['Part-1'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Part-1'].sets['Set-8'], sectionName=
+    'Section-1', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].parts['Part-1'].Set(faces=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#f ]', 
+    ), ), name='Set-9')
+mdb.models['Model-1'].parts['Part-1'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Part-1'].sets['Set-9'], sectionName=
+    'Section-1', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.jobs['Job-4'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-4']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DC', 'handle': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IN THE OPTION *CONCRETE TENSION STIFFENING, STRESS VALUES SMALLER THAN THE MINIMUM (1.00000E-02 TIMES THE INITIAL FAILURE STRESS) HAVE BEEN SPECIFIED. THE MINIMUM VALUE WILL BE ASSUMED.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EVF IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEEQVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RF3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RF3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE OPTION *BOUNDARY,TYPE=DISPLACEMENT HAS BEEN USED; CHECK STATUS FILE BETWEEN STEPS FOR WARNINGS ON ANY JUMPS PRESCRIBED ACROSS THE STEPS IN DISPLACEMENT VALUES OF TRANSLATIONAL DOF. FOR ROTATIONAL DOF MAKE SURE THAT THERE ARE NO SUCH JUMPS. ALL JUMPS IN DISPLACEMENTS ACROSS STEPS ARE IGNORED', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STARTED, {'phase': PACKAGER_PHASE, 
+    'clientHost': 'DC', 'handle': 10948, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': PACKAGER_PHASE, 
+    'message': 'There are 14 warning messages in the data (.dat) file.  Please check the data file for possible errors in the input file.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(COMPLETED, {'phase': PACKAGER_PHASE, 
+    'message': 'Phase complete', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STARTED, {'phase': EXPLICIT_PHASE, 
+    'clientHost': 'DC', 'handle': 5948, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0, 'phase': EXPLICIT_PHASE, 
+    'stableTimeIncrement': 2.32435826141852e-09, 'increment': 0, 'step': 1, 
+    'stepTime': 0.0, 'kineticEnergy': 0.0, 'totalEnergy': 0.0, 'cpuTime': 0.0, 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ODB_FRAME, {'phase': EXPLICIT_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': EXPLICIT_PHASE, 
+    'message': 'Process terminated by external request (SIGTERM or SIGINT received).', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(INTERRUPTED, {'phase': EXPLICIT_PHASE, 
+    'message': 'Analysis terminated by external signal', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {
+    'message': 'Abaqus/Explicit Analysis exited with an error - Please see the  status file for possible error messages if the file exists.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(JOB_ABORTED, {
+    'message': 'Abaqus/Explicit Analysis exited with an error - Please see the  status file for possible error messages if the file exists.', 
+    'jobName': 'Job-4'})
+mdb.models['Model-1'].parts['Part-1'].deleteMesh()
+mdb.models['Model-1'].parts['Part-1'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.05)
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].parts['Part-1'].deleteMesh()
+mdb.models['Model-1'].parts['Part-1'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.025)
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].parts['Part-1'].deleteSets(setNames=('Set-1', 'Set-2', 
+    'Set-3', 'Set-8', 'Set-9'))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].rootAssembly.deleteSets(setNames=('Set-5', 'Set-6', 
+    'Set-7'))
+mdb.models['Model-1'].rootAssembly.Set(name='Set-1', nodes=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].nodes.getSequenceFromMask(
+    mask=('[#2 ]', ), ))
+del mdb.models['Model-1'].rootAssembly.features['Part-1-1']
+del mdb.models['Model-1'].rootAssembly.sets['Set-1']
+del mdb.models['Model-1'].steps['Step-1']
+mdb.models['Model-1'].parts['Part-1'].Set(faces=
+    mdb.models['Model-1'].parts['Part-1'].faces.getSequenceFromMask(('[#f ]', 
+    ), ), name='Set-5')
+mdb.models['Model-1'].parts['Part-1'].SectionAssignment(offset=0.0, 
+    offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['Part-1'].sets['Set-5'], sectionName=
+    'Section-1', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='Part-1-1', 
+    part=mdb.models['Model-1'].parts['Part-1'])
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-2', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#2 ]', ), ))
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-3', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#20 ]', ), ))
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-4', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#400 ]', ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.models['Model-1'].rootAssembly.Set(name='Set-5', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#20 ]', ), ))
+mdb.models['Model-1'].PinnedBC(createStepName='Initial', localCsys=None, name=
+    'BC-1', region=mdb.models['Model-1'].rootAssembly.sets['Set-5'])
+mdb.models['Model-1'].rootAssembly.Set(name='Set-6', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#400 ]', ), ))
+mdb.models['Model-1'].PinnedBC(createStepName='Initial', localCsys=None, name=
+    'BC-2', region=mdb.models['Model-1'].rootAssembly.sets['Set-6'])
+del mdb.models['Model-1'].boundaryConditions['BC-1']
+del mdb.models['Model-1'].boundaryConditions['BC-2']
+mdb.models['Model-1'].ExplicitDynamicsStep(name='Step-1', previous='Initial')
+mdb.models['Model-1'].rootAssembly.Set(name='Set-7', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#2 ]', ), ))
+mdb.models['Model-1'].VelocityBC(amplitude=UNSET, createStepName='Step-1', 
+    distributionType=UNIFORM, fieldName='', localCsys=None, name='BC-1', 
+    region=mdb.models['Model-1'].rootAssembly.sets['Set-7'], v1=UNSET, v2=
+    -0.005, vr3=UNSET)
+mdb.models['Model-1'].rootAssembly.Set(name='Set-8', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#20 ]', ), ))
+mdb.models['Model-1'].PinnedBC(createStepName='Step-1', localCsys=None, name=
+    'BC-2', region=mdb.models['Model-1'].rootAssembly.sets['Set-8'])
+mdb.models['Model-1'].rootAssembly.Set(name='Set-9', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['Part-1-1'].vertices.getSequenceFromMask(
+    ('[#400 ]', ), ))
+mdb.models['Model-1'].PinnedBC(createStepName='Step-1', localCsys=None, name=
+    'BC-3', region=mdb.models['Model-1'].rootAssembly.sets['Set-9'])
+mdb.models['Model-1'].historyOutputRequests['H-Output-1'].setValues(rebar=
+    EXCLUDE, region=
+    mdb.models['Model-1'].rootAssembly.allInstances['Part-1-1'].sets['Set-3'], 
+    sectionPoints=DEFAULT, variables=('RF1', 'RF2', 'RF3', 'RM1', 'RM2', 'RM3', 
+    'ALLAE', 'ALLCD', 'ALLDMD', 'ALLFD', 'ALLIE', 'ALLKE', 'ALLPD', 'ALLSE', 
+    'ALLVD', 'ALLWK', 'ETOTAL'))
+mdb.models['Model-1'].historyOutputRequests['H-Output-1'].setValues(region=
+    mdb.models['Model-1'].rootAssembly.allInstances['Part-1-1'].sets['Set-4'])
+mdb.models['Model-1'].HistoryOutputRequest(createStepName='Step-1', name=
+    'H-Output-2', rebar=EXCLUDE, region=
+    mdb.models['Model-1'].rootAssembly.allInstances['Part-1-1'].sets['Set-4'], 
+    sectionPoints=DEFAULT, variables=('RF1', 'RF2', 'RF3', 'RM1', 'RM2', 
+    'RM3'))
+mdb.models['Model-1'].fieldOutputRequests['F-Output-1'].setValues(variables=(
+    'S', 'SVAVG', 'PE', 'PEVAVG', 'PEEQ', 'PEEQVAVG', 'LE', 'U', 'V', 'A', 
+    'RF', 'CSTRESS', 'DAMAGEC', 'DAMAGET', 'DAMAGEFT', 'DAMAGEFC', 'DAMAGEMT', 
+    'DAMAGEMC', 'DAMAGESHR', 'SDEG', 'CFAILURE', 'DMICRT', 'HSNFTCRT', 
+    'HSNFCCRT', 'HSNMTCRT', 'HSNMCCRT', 'ERPRATIO', 'SHRRATIO', 'CSDMG', 
+    'CSMAXSCRT', 'CSMAXUCRT', 'CSQUADSCRT', 'CSQUADUCRT', 'DMICRTMAX', 
+    'EDMICRTMAX', 'EVF'))
+mdb.jobs['Job-4'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-4']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DC', 'handle': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IN THE OPTION *CONCRETE TENSION STIFFENING, STRESS VALUES SMALLER THAN THE MINIMUM (1.00000E-02 TIMES THE INITIAL FAILURE STRESS) HAVE BEEN SPECIFIED. THE MINIMUM VALUE WILL BE ASSUMED.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT VARIABLE CFAILURE HAS NO COMPONENTS IN THIS ANALYSIS FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ERPRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EVF IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEEQVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SHRRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RF3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RF3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST RM3 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE OPTION *BOUNDARY,TYPE=DISPLACEMENT HAS BEEN USED; CHECK STATUS FILE BETWEEN STEPS FOR WARNINGS ON ANY JUMPS PRESCRIBED ACROSS THE STEPS IN DISPLACEMENT VALUES OF TRANSLATIONAL DOF. FOR ROTATIONAL DOF MAKE SURE THAT THERE ARE NO SUCH JUMPS. ALL JUMPS IN DISPLACEMENTS ACROSS STEPS ARE IGNORED', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Temp\\Job-4.odb', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.models['Model-1'].fieldOutputRequests['F-Output-1'].setValues(variables=(
+    'S', 'SVAVG', 'PE', 'PEVAVG', 'PEEQ', 'PEEQVAVG', 'LE', 'U', 'V', 'A', 
+    'RF', 'CSTRESS', 'CFORCE', 'CTHICK', 'FSLIPR', 'FSLIP', 'PPRESS', 
+    'DAMAGEC', 'DAMAGET', 'DAMAGEFT', 'DAMAGEFC', 'DAMAGEMT', 'DAMAGEMC', 
+    'DAMAGESHR', 'SDEG', 'CFAILURE', 'DMICRT', 'HSNFTCRT', 'HSNFCCRT', 
+    'HSNMTCRT', 'HSNMCCRT', 'ERPRATIO', 'SHRRATIO', 'CSDMG', 'CSMAXSCRT', 
+    'CSMAXUCRT', 'CSQUADSCRT', 'CSQUADUCRT', 'DMICRTMAX', 'EDMICRTMAX', 'EVF'))
+del mdb.models['Model-1'].historyOutputRequests['H-Output-1']
+del mdb.models['Model-1'].historyOutputRequests['H-Output-2']
+mdb.jobs['Job-4'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-4']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DC', 'handle': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IN THE OPTION *CONCRETE TENSION STIFFENING, STRESS VALUES SMALLER THAN THE MINIMUM (1.00000E-02 TIMES THE INITIAL FAILURE STRESS) HAVE BEEN SPECIFIED. THE MINIMUM VALUE WILL BE ASSUMED.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT VARIABLE CFAILURE HAS NO COMPONENTS IN THIS ANALYSIS FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ERPRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EVF IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEEQVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SHRRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PPRESS IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE OPTION *BOUNDARY,TYPE=DISPLACEMENT HAS BEEN USED; CHECK STATUS FILE BETWEEN STEPS FOR WARNINGS ON ANY JUMPS PRESCRIBED ACROSS THE STEPS IN DISPLACEMENT VALUES OF TRANSLATIONAL DOF. FOR ROTATIONAL DOF MAKE SURE THAT THERE ARE NO SUCH JUMPS. ALL JUMPS IN DISPLACEMENTS ACROSS STEPS ARE IGNORED', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Temp\\Job-4.odb', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.models['Model-1'].boundaryConditions['BC-1'].setValues(amplitude='Amp-1')
+mdb.jobs['Job-4'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-4']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DC', 'handle': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IN THE OPTION *CONCRETE TENSION STIFFENING, STRESS VALUES SMALLER THAN THE MINIMUM (1.00000E-02 TIMES THE INITIAL FAILURE STRESS) HAVE BEEN SPECIFIED. THE MINIMUM VALUE WILL BE ASSUMED.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT VARIABLE CFAILURE HAS NO COMPONENTS IN THIS ANALYSIS FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ERPRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EVF IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEEQVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SHRRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PPRESS IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE OPTION *BOUNDARY,TYPE=DISPLACEMENT HAS BEEN USED; CHECK STATUS FILE BETWEEN STEPS FOR WARNINGS ON ANY JUMPS PRESCRIBED ACROSS THE STEPS IN DISPLACEMENT VALUES OF TRANSLATIONAL DOF. FOR ROTATIONAL DOF MAKE SURE THAT THERE ARE NO SUCH JUMPS. ALL JUMPS IN DISPLACEMENTS ACROSS STEPS ARE IGNORED', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Temp\\Job-4.odb', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-4']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DC', 'handle': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IN THE OPTION *CONCRETE TENSION STIFFENING, STRESS VALUES SMALLER THAN THE MINIMUM (1.00000E-02 TIMES THE INITIAL FAILURE STRESS) HAVE BEEN SPECIFIED. THE MINIMUM VALUE WILL BE ASSUMED.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT VARIABLE CFAILURE HAS NO COMPONENTS IN THIS ANALYSIS FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ERPRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EVF IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEEQVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SHRRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PPRESS IS NOT AVAILABLE FOR THIS TYPE OF ANALYSIS', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE OPTION *BOUNDARY,TYPE=DISPLACEMENT HAS BEEN USED; CHECK STATUS FILE BETWEEN STEPS FOR WARNINGS ON ANY JUMPS PRESCRIBED ACROSS THE STEPS IN DISPLACEMENT VALUES OF TRANSLATIONAL DOF. FOR ROTATIONAL DOF MAKE SURE THAT THERE ARE NO SUCH JUMPS. ALL JUMPS IN DISPLACEMENTS ACROSS STEPS ARE IGNORED', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Temp\\Job-4.odb', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.models['Model-1'].fieldOutputRequests['F-Output-1'].setValues(variables=(
+    'S', 'SVAVG', 'PE', 'PEVAVG', 'PEEQ', 'PEEQVAVG', 'LE', 'U', 'V', 'A', 
+    'RF', 'DAMAGEC', 'DAMAGET', 'DAMAGEFT', 'DAMAGEFC', 'DAMAGEMT', 'DAMAGEMC', 
+    'DAMAGESHR', 'SDEG', 'CFAILURE', 'DMICRT', 'HSNFTCRT', 'HSNFCCRT', 
+    'HSNMTCRT', 'HSNMCCRT', 'ERPRATIO', 'SHRRATIO', 'CSDMG', 'CSMAXSCRT', 
+    'CSMAXUCRT', 'CSQUADSCRT', 'CSQUADUCRT', 'DMICRTMAX', 'EDMICRTMAX', 'EVF'))
+mdb.jobs['Job-4'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-4']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DC', 'handle': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IN THE OPTION *CONCRETE TENSION STIFFENING, STRESS VALUES SMALLER THAN THE MINIMUM (1.00000E-02 TIMES THE INITIAL FAILURE STRESS) HAVE BEEN SPECIFIED. THE MINIMUM VALUE WILL BE ASSUMED.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNFTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMCCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST HSNMTCRT IS NOT AVAILABLE FOR THIS OPTION', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT VARIABLE CFAILURE HAS NO COMPONENTS IN THIS ANALYSIS FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST ERPRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EVF IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEEQVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST PEVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SHRRATIO IS NOT AVAILABLE FOR THE MATERIAL FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE OPTION *BOUNDARY,TYPE=DISPLACEMENT HAS BEEN USED; CHECK STATUS FILE BETWEEN STEPS FOR WARNINGS ON ANY JUMPS PRESCRIBED ACROSS THE STEPS IN DISPLACEMENT VALUES OF TRANSLATIONAL DOF. FOR ROTATIONAL DOF MAKE SURE THAT THERE ARE NO SUCH JUMPS. ALL JUMPS IN DISPLACEMENTS ACROSS STEPS ARE IGNORED', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Temp\\Job-4.odb', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error.', 
+    'jobName': 'Job-4'})
+mdb.models['Model-1'].fieldOutputRequests['F-Output-1'].setValues(variables=(
+    'S', 'SVAVG', 'U', 'V', 'A', 'RF', 'EVF'))
+mdb.jobs['Job-4'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-4']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DC', 'handle': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IN THE OPTION *CONCRETE TENSION STIFFENING, STRESS VALUES SMALLER THAN THE MINIMUM (1.00000E-02 TIMES THE INITIAL FAILURE STRESS) HAVE BEEN SPECIFIED. THE MINIMUM VALUE WILL BE ASSUMED.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EVF IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE OPTION *BOUNDARY,TYPE=DISPLACEMENT HAS BEEN USED; CHECK STATUS FILE BETWEEN STEPS FOR WARNINGS ON ANY JUMPS PRESCRIBED ACROSS THE STEPS IN DISPLACEMENT VALUES OF TRANSLATIONAL DOF. FOR ROTATIONAL DOF MAKE SURE THAT THERE ARE NO SUCH JUMPS. ALL JUMPS IN DISPLACEMENTS ACROSS STEPS ARE IGNORED', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STARTED, {'phase': PACKAGER_PHASE, 
+    'clientHost': 'DC', 'handle': 9540, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': PACKAGER_PHASE, 
+    'message': 'There are 4 warning messages in the data (.dat) file.  Please check the data file for possible errors in the input file.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(COMPLETED, {'phase': PACKAGER_PHASE, 
+    'message': 'Phase complete', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STARTED, {'phase': EXPLICIT_PHASE, 
+    'clientHost': 'DC', 'handle': 8288, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0, 
+    'stableTimeIncrement': 4.94424901020807e-09, 'stepTime': 0.0, 
+    'totalEnergy': 0.0, 'cpuTime': 0.0, 'jobName': 'Job-4', 'step': 1, 
+    'increment': 0, 'phase': EXPLICIT_PHASE, 'kineticEnergy': 0.0})
+mdb.jobs['Job-4']._Message(ODB_FRAME, {'phase': EXPLICIT_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.00525110540911555, 
+    'stableTimeIncrement': 5.44525935453066e-09, 
+    'stepTime': 0.00525110540911555, 'totalEnergy': 1.9933190757357e-28, 
+    'cpuTime': 120.0, 'jobName': 'Job-4', 'step': 1, 'increment': 962827, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 4.64969370160638e-28})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0106777334585786, 
+    'stableTimeIncrement': 5.44525935453066e-09, 
+    'stepTime': 0.0106777334585786, 'totalEnergy': -5.90044845945984e-26, 
+    'cpuTime': 240.0, 'jobName': 'Job-4', 'step': 1, 'increment': 1933960, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 3.2370429615118e-26})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0161006227135658, 
+    'stableTimeIncrement': 5.44525935453066e-09, 
+    'stepTime': 0.0161006227135658, 'totalEnergy': -3.3194261094046e-24, 
+    'cpuTime': 360.0, 'jobName': 'Job-4', 'step': 1, 'increment': 2904424, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 3.74981752593671e-25})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0215454008430243, 
+    'stableTimeIncrement': 5.44525935453066e-09, 
+    'stepTime': 0.0215454008430243, 'totalEnergy': -5.1937024277941e-23, 
+    'cpuTime': 480.0, 'jobName': 'Job-4', 'step': 1, 'increment': 3878805, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.10954875856055e-24})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0269645694643259, 
+    'stableTimeIncrement': 5.44525935453066e-09, 
+    'stepTime': 0.0269645694643259, 'totalEnergy': -2.12667275944541e-23, 
+    'cpuTime': 600.0, 'jobName': 'Job-4', 'step': 1, 'increment': 4848603, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 7.96012008212931e-24})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0320147126913071, 
+    'stableTimeIncrement': 5.44525846635224e-09, 
+    'stepTime': 0.0320147126913071, 'totalEnergy': -4.06082874813707e-22, 
+    'cpuTime': 720.0, 'jobName': 'Job-4', 'step': 1, 'increment': 5820787, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 9.51857002065678e-24})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.035597812384367, 
+    'stableTimeIncrement': 5.44525846635224e-09, 'stepTime': 0.035597812384367, 
+    'totalEnergy': 2.06320372469284e-21, 'cpuTime': 840.0, 'jobName': 'Job-4', 
+    'step': 1, 'increment': 6782618, 'phase': EXPLICIT_PHASE, 
+    'kineticEnergy': 1.85559112233016e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0391763374209404, 
+    'stableTimeIncrement': 5.44525846635224e-09, 
+    'stepTime': 0.0391763374209404, 'totalEnergy': -2.15738260961469e-22, 
+    'cpuTime': 960.0, 'jobName': 'Job-4', 'step': 1, 'increment': 7743221, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 3.29554373992949e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0426893457770348, 
+    'stableTimeIncrement': 5.44525935453066e-09, 
+    'stepTime': 0.0426893457770348, 'totalEnergy': -4.48871578885818e-21, 
+    'cpuTime': 1080.0, 'jobName': 'Job-4', 'step': 1, 'increment': 8686237, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 5.38255699068146e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0459287948906422, 
+    'stableTimeIncrement': 5.44525846635224e-09, 
+    'stepTime': 0.0459287948906422, 'totalEnergy': -6.14318687388934e-21, 
+    'cpuTime': 1200.0, 'jobName': 'Job-4', 'step': 1, 'increment': 9555820, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 8.27037797174746e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0491625927388668, 
+    'stableTimeIncrement': 5.44525846635224e-09, 
+    'stepTime': 0.0491625927388668, 'totalEnergy': 4.12172273137354e-20, 
+    'cpuTime': 1320.0, 'jobName': 'Job-4', 'step': 1, 'increment': 10423886, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.22222359987922e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0500000007450581, 
+    'stableTimeIncrement': 5.44525802226303e-09, 
+    'stepTime': 0.0500000007450581, 'totalEnergy': 5.40256473476759e-20, 
+    'cpuTime': 1350.5, 'jobName': 'Job-4', 'step': 1, 'increment': 10648676, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.33007022573605e-22})
+mdb.jobs['Job-4']._Message(ODB_FRAME, {'phase': EXPLICIT_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0532817877829075, 
+    'stableTimeIncrement': 5.44525802226303e-09, 
+    'stepTime': 0.0532817877829075, 'totalEnergy': 5.9698529536747e-20, 
+    'cpuTime': 1470.5, 'jobName': 'Job-4', 'step': 1, 'increment': 11529624, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.9516317820972e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0566445589065552, 
+    'stableTimeIncrement': 5.44525802226303e-09, 
+    'stepTime': 0.0566445589065552, 'totalEnergy': 1.02277393073973e-19, 
+    'cpuTime': 1590.5, 'jobName': 'Job-4', 'step': 1, 'increment': 12432311, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.76255782103484e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.059953011572361, 
+    'stableTimeIncrement': 5.44525802226303e-09, 'stepTime': 0.059953011572361, 
+    'totalEnergy': 3.13155199523062e-20, 'cpuTime': 1710.5, 'jobName': 'Job-4', 
+    'step': 1, 'increment': 13320417, 'phase': EXPLICIT_PHASE, 
+    'kineticEnergy': 3.85571683484393e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0639369040727615, 
+    'stableTimeIncrement': 5.44525846635224e-09, 
+    'stepTime': 0.0639369040727615, 'totalEnergy': 2.0826034849703e-19, 
+    'cpuTime': 1830.5, 'jobName': 'Job-4', 'step': 1, 'increment': 14196977, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.25832969391138e-21})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0703230276703835, 
+    'stableTimeIncrement': 5.44525846635224e-09, 
+    'stepTime': 0.0703230276703835, 'totalEnergy': 8.15783252784178e-19, 
+    'cpuTime': 1950.5, 'jobName': 'Job-4', 'step': 1, 'increment': 15054108, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 3.91698615936129e-21})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0766645595431328, 
+    'stableTimeIncrement': 5.44525802226303e-09, 
+    'stepTime': 0.0766645595431328, 'totalEnergy': -8.754187873474e-19, 
+    'cpuTime': 2070.5, 'jobName': 'Job-4', 'step': 1, 'increment': 15905254, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 6.45259038928182e-21})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0833504125475883, 
+    'stableTimeIncrement': 5.44525846635224e-09, 
+    'stepTime': 0.0833504125475883, 'totalEnergy': 3.03719689862398e-18, 
+    'cpuTime': 2190.5, 'jobName': 'Job-4', 'step': 1, 'increment': 16802614, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.02681475649966e-20})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0898210853338242, 
+    'stableTimeIncrement': 5.44525802226303e-09, 
+    'stepTime': 0.0898210853338242, 'totalEnergy': -1.43951915557131e-18, 
+    'cpuTime': 2310.5, 'jobName': 'Job-4', 'step': 1, 'increment': 17671093, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.60638684984125e-20})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0964780226349831, 
+    'stableTimeIncrement': 5.44525802226303e-09, 
+    'stepTime': 0.0964780226349831, 'totalEnergy': -2.89653752379632e-18, 
+    'cpuTime': 2430.5, 'jobName': 'Job-4', 'step': 1, 'increment': 18564572, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.38550713789396e-20})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.100000001490116, 
+    'stableTimeIncrement': 5.44525802226303e-09, 'stepTime': 0.100000001490116, 
+    'totalEnergy': -6.87841831573317e-18, 'cpuTime': 2495.80004882813, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 19037284, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.90230696639721e-20})
+mdb.jobs['Job-4']._Message(ODB_FRAME, {'phase': EXPLICIT_PHASE, 'step': 0, 
+    'frame': 2, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.106384187936783, 
+    'stableTimeIncrement': 5.44525713408461e-09, 'stepTime': 0.106384187936783, 
+    'totalEnergy': -1.31218291003635e-17, 'cpuTime': 2615.80004882813, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 19894155, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 4.19415531869962e-20})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.112742058932781, 
+    'stableTimeIncrement': 5.44525802226303e-09, 'stepTime': 0.112742058932781, 
+    'totalEnergy': -2.41207967659219e-17, 'cpuTime': 2735.80004882813, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 20747494, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 5.82509117659909e-20})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.119285002350807, 
+    'stableTimeIncrement': 5.44525713408461e-09, 'stepTime': 0.119285002350807, 
+    'totalEnergy': 7.79241773742823e-18, 'cpuTime': 2855.80004882813, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 21625673, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 7.96537512890545e-20})
+mdb.models['Model-1'].parts['Part-1'].deleteMesh()
+mdb.models['Model-1'].parts['Part-1'].seedPart(deviationFactor=0.1, 
+    minSizeFactor=0.1, size=0.1)
+mdb.models['Model-1'].parts['Part-1'].generateMesh()
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-2', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#2 ]', ), ))
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-3', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#20 ]', ), ))
+mdb.models['Model-1'].parts['Part-1'].Set(name='Set-4', nodes=
+    mdb.models['Model-1'].parts['Part-1'].nodes.getSequenceFromMask(mask=(
+    '[#400 ]', ), ))
+mdb.models['Model-1'].rootAssembly.regenerate()
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 5.44525535772777e-09, 'stepTime': 0.125, 
+    'totalEnergy': 6.48839347520962e-17, 'cpuTime': 2975.80004882813, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 22570401, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.50410233202802e-21})
+mdb.jobs['Job-4']._Message(ERROR, {'phase': EXPLICIT_PHASE, 
+    'message': 'Process terminated by external request (SIGTERM or SIGINT received).', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(INTERRUPTED, {'phase': EXPLICIT_PHASE, 
+    'message': 'Analysis terminated by external signal', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(ERROR, {
+    'message': 'Abaqus/Explicit Analysis exited with an error - Please see the  status file for possible error messages if the file exists.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(JOB_ABORTED, {
+    'message': 'Abaqus/Explicit Analysis exited with an error - Please see the  status file for possible error messages if the file exists.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-4']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DC', 'handle': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'IN THE OPTION *CONCRETE TENSION STIFFENING, STRESS VALUES SMALLER THAN THE MINIMUM (1.00000E-02 TIMES THE INITIAL FAILURE STRESS) HAVE BEEN SPECIFIED. THE MINIMUM VALUE WILL BE ASSUMED.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST EVF IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST SVAVG IS NOT AVAILABLE FOR ELEMENT TYPE CPS4R', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'THE OPTION *BOUNDARY,TYPE=DISPLACEMENT HAS BEEN USED; CHECK STATUS FILE BETWEEN STEPS FOR WARNINGS ON ANY JUMPS PRESCRIBED ACROSS THE STEPS IN DISPLACEMENT VALUES OF TRANSLATIONAL DOF. FOR ROTATIONAL DOF MAKE SURE THAT THERE ARE NO SUCH JUMPS. ALL JUMPS IN DISPLACEMENTS ACROSS STEPS ARE IGNORED', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STARTED, {'phase': PACKAGER_PHASE, 
+    'clientHost': 'DC', 'handle': 9428, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(WARNING, {'phase': PACKAGER_PHASE, 
+    'message': 'There are 4 warning messages in the data (.dat) file.  Please check the data file for possible errors in the input file.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(COMPLETED, {'phase': PACKAGER_PHASE, 
+    'message': 'Phase complete', 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STARTED, {'phase': EXPLICIT_PHASE, 
+    'clientHost': 'DC', 'handle': 3984, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0, 
+    'stableTimeIncrement': 5.20610754506379e-09, 'stepTime': 0.0, 
+    'totalEnergy': 0.0, 'cpuTime': 0.0, 'jobName': 'Job-4', 'step': 1, 
+    'increment': 0, 'phase': EXPLICIT_PHASE, 'kineticEnergy': 0.0})
+mdb.jobs['Job-4']._Message(ODB_FRAME, {'phase': EXPLICIT_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0228465404361486, 
+    'stableTimeIncrement': 6.48344844478288e-09, 
+    'stepTime': 0.0228465404361486, 'totalEnergy': -9.64283375702991e-22, 
+    'cpuTime': 120.0, 'jobName': 'Job-4', 'step': 1, 'increment': 3690123, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.84180640910015e-24})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0467187725007534, 
+    'stableTimeIncrement': 6.48344755660446e-09, 
+    'stepTime': 0.0467187725007534, 'totalEnergy': -8.42149415089455e-20, 
+    'cpuTime': 240.0, 'jobName': 'Job-4', 'step': 1, 'increment': 7270164, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.23003278623545e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0500000007450581, 
+    'stableTimeIncrement': 6.48344755660446e-09, 
+    'stepTime': 0.0500000007450581, 'totalEnergy': 1.56425716476369e-18, 
+    'cpuTime': 255.5, 'jobName': 'Job-4', 'step': 1, 'increment': 7710563, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 3.34438754593475e-22})
+mdb.jobs['Job-4']._Message(ODB_FRAME, {'phase': EXPLICIT_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.0754477456212044, 
+    'stableTimeIncrement': 6.48344755660446e-09, 
+    'stepTime': 0.0754477456212044, 'totalEnergy': -3.6665111523658e-17, 
+    'cpuTime': 375.5, 'jobName': 'Job-4', 'step': 1, 'increment': 11126102, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 3.62977111766569e-21})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.100000001490116, 
+    'stableTimeIncrement': 6.48344755660446e-09, 'stepTime': 0.100000001490116, 
+    'totalEnergy': -1.41758970831337e-16, 'cpuTime': 490.399993896484, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 14421450, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.81091614202423e-20})
+mdb.jobs['Job-4']._Message(ODB_FRAME, {'phase': EXPLICIT_PHASE, 'step': 0, 
+    'frame': 2, 'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344711251525e-09, 'stepTime': 0.125, 
+    'totalEnergy': 7.03979458616653e-15, 'cpuTime': 610.400024414063, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 18139481, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 7.38722673133592e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344711251525e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.05649274322484e-13, 'cpuTime': 730.400024414063, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 21846451, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.82111490292052e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344711251525e-09, 'stepTime': 0.125, 
+    'totalEnergy': -4.35210000633221e-13, 'cpuTime': 850.400024414063, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 25642161, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.12846678691606e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344711251525e-09, 'stepTime': 0.125, 
+    'totalEnergy': -8.53303864199739e-13, 'cpuTime': 970.400024414063, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 29329238, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.04623160968899e-21})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344711251525e-09, 'stepTime': 0.125, 
+    'totalEnergy': -9.67122107224661e-13, 'cpuTime': 1090.40002441406, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 33080562, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 4.00860804947761e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.16964153206583e-12, 'cpuTime': 1210.40002441406, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 36734916, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 3.34605639695696e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.04555773761117e-12, 'cpuTime': 1330.40002441406, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 40574695, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 4.79048217143326e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344622433683e-09, 'stepTime': 0.125, 
+    'totalEnergy': -8.21831751957047e-13, 'cpuTime': 1450.40002441406, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 44326953, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.00448920081174e-18})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -9.5688398610988e-13, 'cpuTime': 1570.40002441406, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 48077561, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 7.85469623743903e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -9.2901771345244e-13, 'cpuTime': 1690.40002441406, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 51825359, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.75052100268974e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.06680257076081e-12, 'cpuTime': 1810.40002441406, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 55596942, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.53739997395252e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.13543831455065e-12, 'cpuTime': 1930.40002441406, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 59376648, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.51978297462498e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.16906267652594e-12, 'cpuTime': 2050.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 63131873, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.07648700637706e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.15556869628719e-12, 'cpuTime': 2170.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 66972812, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 5.19620501012982e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.21167301452701e-12, 'cpuTime': 2290.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 70591037, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.17849584083424e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.30118105960003e-12, 'cpuTime': 2410.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 74254673, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 7.6518485442705e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.29374614320221e-12, 'cpuTime': 2530.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 77708571, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.20536305469084e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.28363877686943e-12, 'cpuTime': 2650.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 81295238, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.60938226955653e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.30335911334434e-12, 'cpuTime': 2770.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 84904968, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 5.76026737863362e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.38928842388641e-12, 'cpuTime': 2890.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 88481940, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 5.37639892788513e-21})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.34688766216529e-12, 'cpuTime': 3010.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 92103748, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.22731459261715e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344533615841e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.44188957648672e-12, 'cpuTime': 3130.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 95765727, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 8.92710972405375e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.44311049655316e-12, 'cpuTime': 3250.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 99600812, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 6.66289843469433e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.40804848249715e-12, 'cpuTime': 3370.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 103584646, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.39005006541591e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344444797999e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.43193605844222e-12, 'cpuTime': 3490.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 107556806, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 4.55195303734413e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344444797999e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.46395330753724e-12, 'cpuTime': 3610.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 111528213, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 7.93760110095669e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.48126964253509e-12, 'cpuTime': 3730.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 115503567, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.10008596986341e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.48912739778018e-12, 'cpuTime': 3850.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 119472502, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.67038623388714e-21})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.41482452923475e-12, 'cpuTime': 3970.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 123457406, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.66617378589297e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.40279725769493e-12, 'cpuTime': 4090.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 127439822, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.80104542970196e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.39865560539604e-12, 'cpuTime': 4210.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 131407940, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 8.4558593654041e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.3746431293607e-12, 'cpuTime': 4330.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 135378378, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.20215128640132e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.3816184524576e-12, 'cpuTime': 4450.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 139353752, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 8.30662960133035e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.37482245640003e-12, 'cpuTime': 4570.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 143332541, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 9.31819919295846e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.33971165324626e-12, 'cpuTime': 4690.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 147312024, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.98613311847798e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.31217335174599e-12, 'cpuTime': 4810.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 151283503, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 7.47443662969442e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.2897540023829e-12, 'cpuTime': 4930.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 155259539, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 7.23837814485158e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.28398127633572e-12, 'cpuTime': 5050.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 159231887, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 3.65226796655675e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.33145545370278e-12, 'cpuTime': 5170.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 163205234, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 6.16166189531542e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.34558705323917e-12, 'cpuTime': 5290.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 167171662, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 7.63029118454134e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.36851543552224e-12, 'cpuTime': 5410.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 171140837, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 9.76992290917562e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344311571236e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.48856393791114e-12, 'cpuTime': 5530.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 175111283, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 8.23363724840334e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.51437087696216e-12, 'cpuTime': 5650.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 179084781, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.57664943274742e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344311571236e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.52769810690678e-12, 'cpuTime': 5770.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 183057535, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 5.79068080642915e-23})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344311571236e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.54568231044289e-12, 'cpuTime': 5890.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 187031543, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 2.06845968402328e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.52833887039072e-12, 'cpuTime': 6010.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 191007627, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.25127425468376e-22})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344400389078e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.5206424444289e-12, 'cpuTime': 6130.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 194979398, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 1.27056719233992e-20})
+mdb.jobs['Job-4']._Message(STATUS, {'totalTime': 0.125, 
+    'stableTimeIncrement': 6.48344311571236e-09, 'stepTime': 0.125, 
+    'totalEnergy': -1.54619416228852e-12, 'cpuTime': 6250.39990234375, 
+    'jobName': 'Job-4', 'step': 1, 'increment': 198953250, 
+    'phase': EXPLICIT_PHASE, 'kineticEnergy': 9.32499917396147e-23})
+mdb.jobs['Job-4']._Message(ERROR, {
+    'message': 'Abaqus/Explicit Analysis exited with an error - Please see the  status file for possible error messages if the file exists.', 
+    'jobName': 'Job-4'})
+mdb.jobs['Job-4']._Message(JOB_ABORTED, {
+    'message': 'Abaqus/Explicit Analysis exited with an error - Please see the  status file for possible error messages if the file exists.', 
+    'jobName': 'Job-4'})
+# Save by Deepak Choudhary on 2021_04_11-22.56.58; build 6.14-5 2015_08_18-20.07.49 135153
